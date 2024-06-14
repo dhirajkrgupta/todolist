@@ -1,0 +1,52 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-color: rgb(221, 221, 221);
+}
+header{
+ padding-top: 1rem;
+ display: flex;
+ justify-content: center;
+}
+input{
+  width: 60rem;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  font-size: 3rem;
+  margin-right:1.75rem;
+  border-radius: 1rem;
+}
+
+#addBtn{
+  padding: 1rem;
+  outline: none;
+  border: none;
+  font-size: 3rem;
+  border-radius: 1rem;
+}
+li{
+  width: 60rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 3rem;
+  margin: 2rem 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+.Edit{
+  display: flex;
+  width: 6.5rem;
+  justify-content: space-between;
+}
+li i{
+  font-size: 3rem;
+  
+}
+ul{
+  margin-left: 3.7rem;
+}
