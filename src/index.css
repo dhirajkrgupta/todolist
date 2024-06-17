@@ -8,8 +8,8 @@ body{
 header{
  
  padding-top: 1rem;
- display: flex;
- justify-content: center;
+ width: fit-content;
+ margin: auto;
 }
 input{
   width: 60rem;
