@@ -22,13 +22,29 @@ function App() {
     removeTask(index);
   }
 
+  window.addEventListener('load', () => {
+   
+    const taskinput = document.querySelector('.taskinput');
+    const tasklist= document.querySelector('.tasklist');
+
+    function matchWidth() {
+      const widthA = taskinput.offsetWidth; 
+      tasklist.style.width = widthA + 'px'; 
+    }
+
+    matchWidth();
+
+
+    window.addEventListener('resize', matchWidth);
+  });
+
   return (
-    <>
+   
       <main>
         <Todoinput addTask={addTask} inputTask={inputTask} setInputTask={setInputTask} />
         <TodoList Tasks={Tasks} removeTask={removeTask} editTask={editTask } />
       </main>
-    </>
+    
   )
 }
 

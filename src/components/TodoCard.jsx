@@ -3,7 +3,7 @@ import React from "react";
 export default function TodoCard(props) {
   const { children, removeTask,index,editTask} = props;
   return (
-      <li>
+      <li className="taskcard">
           {children}
       <div className="Edit">
         <button onClick={()=>{editTask(index)}}>
