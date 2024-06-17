@@ -4,7 +4,7 @@ export default function Todoinput(props) {
   const { addTask, inputTask, setInputTask } = props;
   return (
     <header className="taskinput">
-      <input 
+      <input className="inputfield" 
         type="text"
         placeholder="Enter Task.."
         value={inputTask}

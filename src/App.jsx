@@ -26,10 +26,14 @@ function App() {
    
     const taskinput = document.querySelector('.taskinput');
     const tasklist= document.querySelector('.tasklist');
+    const inputfield = document.querySelector('.inputfield');
+    const taskcard = document.querySelector('.taskcard');
 
     function matchWidth() {
       const widthA = taskinput.offsetWidth; 
+      const widthB = inputfield.offsetWidth; 
       tasklist.style.width = widthA + 'px'; 
+      taskcard.style.width = widthB + 'px'; 
     }
 
     matchWidth();

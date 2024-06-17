@@ -6,9 +6,10 @@ body{
   background-color: rgb(221, 221, 221);
 }
 header{
- 
  padding-top: 1rem;
  width: fit-content;
+ display: flex;
+ flex-wrap: nowrap;
  margin: auto;
 }
 input{
@@ -38,6 +39,7 @@ li{
   font-size: 3rem;
   margin-top: 1rem;
   font-family: 'Courier New', Courier, monospace;
+  flex-shrink: 1;
 }
 .Edit{
   display: flex;
@@ -51,3 +53,4 @@ li i{
 .tasklist{
   margin: auto;
 }
+
