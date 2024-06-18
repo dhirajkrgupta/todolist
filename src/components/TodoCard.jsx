@@ -6,11 +6,11 @@ export default function TodoCard(props) {
       <li className="taskcard">
           {children}
       <div className="Edit">
-        <button onClick={()=>{editTask(index)}}>
+        <button className="iconBtn" onClick={()=>{editTask(index)}}>
           <i className="fa-solid fa-pen-to-square" />
         </button>
-        <button onClick={()=>{removeTask(index)}}>
-          <i className="fa-solid fa-trash" />
+        <button className="iconBtn" onClick={()=>{removeTask(index)}}>
+        <i className="fa-solid fa-check"></i>
         </button>
       </div>
     </li>
