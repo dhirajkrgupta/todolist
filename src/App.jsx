@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import TodoList from "./components/TodoList";
 import Todoinput from "./components/Todoinput";
 import TodoCard from "./components/TodoCard";
 
