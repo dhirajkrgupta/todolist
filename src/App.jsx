@@ -1,17 +1,31 @@
 import { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
 import Todoinput from "./components/Todoinput";
+import TodoCard from "./components/TodoCard";
 
 function App() {
-  const [Tasks, setTasks] = useState(loadStateFromLocalStorage||{});
-  const [inputTask, setInputTask] = useState([]);
+  
+  function storeStateToLocalStorage(st1) {
+    localStorage.setItem("Tasks", JSON.stringify(st1));
+  }
+  function loadStateFromLocalStorage() {
+    const st = localStorage.getItem("Tasks");
+    return st ? JSON.parse(st) : [];
+  }
+
+  const [Tasks, setTasks] = useState(loadStateFromLocalStorage||[]);
+  const [inputTask, setInputTask] = useState("");
+  const [showAll, setShowAll] = useState(true);
 
   function addTask(newTask) {
-    const newTasks = [...Tasks, newTask];
-    setTasks(newTasks);
+    if (newTask != "") {
+      
+      const newTasks = [ ...Tasks,{task:newTask,isfinished:false} ];
+      setTasks(newTasks);
+    }
   }
   function removeTask(index) {
-    const newTasks = Tasks.filter((task, taskidx) => {
+    const newTasks = Tasks.filter((_, taskidx) => {
       return taskidx != index;
     });
     setTasks(newTasks);
@@ -21,45 +35,49 @@ function App() {
     setInputTask(taskTobeEdited);
     removeTask(index);
   }
-
-  window.addEventListener("load", () => {
-    const taskinput = document.querySelector(".taskinput");
-    const tasklist = document.querySelector(".tasklist");
-
-    function matchWidth() {
-      const widthA = taskinput.offsetWidth;
-      tasklist.style.width = widthA + "px";
-    }
-
-    matchWidth();
-
-    window.addEventListener("resize", matchWidth);
-  });
-
-  function storeStateToLocalStorage(st) {
-    localStorage.setItem("appState", JSON.stringify(st));
+  function finishTask(index) {
+    const newTasks = [...Tasks];
+    newTasks[index] = { ...newTasks[index], isfinished: true };
+    setTasks(newTasks);
   }
-  function loadStateFromLocalStorage() {
-    const st = localStorage.getItem("appState");
-    return st ? JSON.parse(st) : undefined;
+  function unfinishTask(index) {
+    const newTasks = [...Tasks];
+    newTasks[index] = { ...newTasks[index], isfinished: false };
+    setTasks(newTasks);
   }
+  
 
   useEffect(
     () => {
       storeStateToLocalStorage(Tasks);
+      console.log(Tasks);
     },
     [Tasks]
   );
 
   return (
-    <main>
-      <Todoinput
-        addTask={addTask}
-        inputTask={inputTask}
-        setInputTask={setInputTask}
-      />
-      <TodoList Tasks={Tasks} removeTask={removeTask} editTask={editTask} />
-    </main>
+    <>
+      <div className="container mx-auto border-2  text-white mt-1 p-4">
+        <h1 className="text-emerald-600 font-bold text-center">Your To Do List</h1>
+        <div className="container bg-black mx-auto w-full p-2">
+          <div className="flex">
+          <Todoinput addTask={addTask} inputTask={inputTask} setInputTask={setInputTask} />
+          </div>
+          <div className="mx-2">
+          <label htmlFor="finished">Show finished task</label>
+          <input className="mx-1" type="checkbox" name="finished" id="finished" onChange={()=>setShowAll(!showAll)}/>
+          </div>
+        </div>
+        <div className="container min-h-40 bg-violet-700	">
+          {Tasks.filter(task=>(task.isfinished||showAll)).map((it, idx) => {
+            return (
+              <TodoCard key={idx} task={it.task} isfinished={it.isfinished} removeTask={removeTask} index={idx} editTask={editTask} finishTask={finishTask} unfinishTask={unfinishTask}></TodoCard>
+            )
+          })}
+        </div>
+        
+      </div>
+    </>
   );
 }
 
