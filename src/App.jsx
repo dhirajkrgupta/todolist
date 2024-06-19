@@ -31,7 +31,7 @@ function App() {
     setTasks(newTasks);
   }
   function editTask(index) {
-    const taskTobeEdited = Tasks[index];
+    const taskTobeEdited = Tasks[index].task;
     setInputTask(taskTobeEdited);
     removeTask(index);
   }
@@ -57,10 +57,10 @@ function App() {
 
   return (
     <>
-      <div className="container mx-auto border-2  text-white mt-1 p-4">
-        <h1 className="text-emerald-600 font-bold text-center">Your To Do List</h1>
-        <div className="container bg-black mx-auto w-full p-2">
-          <div className="flex">
+      <div className="container mx-auto border-2 rounded-xl bg-[#363457]  text-white mt-1 p-4">
+        <h1 className="text-[#d3b99f] font-bold text-center text-3xl mb-2">Your To Do List</h1>
+        <div className="container bg-[#bdadea] rounded-t-xl mx-auto w-full p-4">
+          <div className="flex mb-4">
           <Todoinput addTask={addTask} inputTask={inputTask} setInputTask={setInputTask} />
           </div>
           <div className="mx-2">
@@ -68,7 +68,7 @@ function App() {
           <input className="mx-1" type="checkbox" name="finished" id="finished" onChange={()=>setShowAll(!showAll)}/>
           </div>
         </div>
-        <div className="container min-h-40 bg-violet-700	">
+        <div className="container min-h-40 rounded-b-xl bg-[#bdadea] p-4	">
           {Tasks.filter(task=>(task.isfinished||showAll)).map((it, idx) => {
             return (
               <TodoCard key={idx} task={it.task} isfinished={it.isfinished} removeTask={removeTask} index={idx} editTask={editTask} finishTask={finishTask} unfinishTask={unfinishTask}></TodoCard>
