@@ -59,7 +59,7 @@ function App() {
 
   return (
     <>
-      <div className="container min-w-fit min-h-screen mx-auto border-2 rounded-xl bg-[#363457]  text-white mt-1 p-4 absolute top-2/4 left-1/2 -translate-y-1/2 -translate-x-1/2">
+      <div className="container min-w-fit min-h-fit mx-auto border-2 rounded-xl bg-[#363457]  text-white mt-1 p-4 absolute top-2/4 left-1/2 -translate-y-1/2 -translate-x-1/2">
         <h1 className="text-[#d3b99f] font-bold text-center text-3xl mb-2">Your To Do List</h1>
         <div className="container bg-[#bdadea] rounded-t-xl mx-auto w-full p-4">
           <div className="flex mb-4">
@@ -80,7 +80,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="container min-h-full rounded-b-xl bg-[#bdadea] p-4	">
+        <div className="container min-h-96 rounded-b-xl bg-[#bdadea] p-4	">
           {Tasks.filter(task=>((task.isfinished && showFinished)||(showAll)||((!task.isfinished) && showUnfinished))).map((it, idx) => {
             return (
               <TodoCard key={idx} task={it.task} isfinished={it.isfinished} removeTask={removeTask} index={idx} editTask={editTask} finishTask={finishTask} unfinishTask={unfinishTask}></TodoCard>
