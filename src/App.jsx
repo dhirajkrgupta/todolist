@@ -26,14 +26,17 @@ function App() {
     }
   }
   function removeTask(index) {
-    const newTasks = Tasks.filter((_, taskidx) => {
-      return taskidx != index;
+    const newTasks = Tasks.filter((it) => {
+      return it.id != index;
     });
+    for (let i = 0; i < newTasks.length; i++){
+      newTasks[i].id = i;
+    }
     setTasks(newTasks);
   }
   function editTask(index) {
-    const taskTobeEdited = Tasks[index].task;
-    setInputTask(taskTobeEdited);
+    const taskTobeEdited = Tasks.find(item => item.id === index);;
+    setInputTask(taskTobeEdited.task);
     removeTask(index);
   }
   function finishTask(index) {
@@ -82,7 +85,7 @@ function App() {
           </div>
         </div>
         <div className="container min-h-96 rounded-b-xl bg-[#bdadea] p-4	">
-          {Tasks.filter(task=>((task.isfinished && showFinished)||(showAll)||((!task.isfinished) && showUnfinished))).map((it, idx) => {
+          {Tasks.filter(task=>((task.isfinished && showFinished)||(showAll)||((!task.isfinished) && showUnfinished))).map((it) => {
             return (
               <TodoCard key={it.id} task={it.task} isfinished={it.isfinished} removeTask={removeTask} index={it.id} editTask={editTask} finishTask={finishTask} unfinishTask={unfinishTask}></TodoCard>
             )
