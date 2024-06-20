@@ -80,7 +80,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="container min-h-96 rounded-b-xl bg-[#bdadea] p-4	">
+        <div className="container min-h-full rounded-b-xl bg-[#bdadea] p-4	">
           {Tasks.filter(task=>((task.isfinished && showFinished)||(showAll)||((!task.isfinished) && showUnfinished))).map((it, idx) => {
             return (
               <TodoCard key={idx} task={it.task} isfinished={it.isfinished} removeTask={removeTask} index={idx} editTask={editTask} finishTask={finishTask} unfinishTask={unfinishTask}></TodoCard>
