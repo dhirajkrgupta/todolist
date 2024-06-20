@@ -45,7 +45,7 @@ function App() {
     setTasks(newTasks);
   }
   function unfinishTask(index) {
-    console.log('let usfinish it',index);
+    
     const newTasks = [...Tasks];
     newTasks[index].isfinished=false;
     setTasks(newTasks);
@@ -55,7 +55,7 @@ function App() {
   useEffect(
     () => {
       storeStateToLocalStorage(Tasks);
-      console.log(Tasks);
+      
     },
     [Tasks]
   );
