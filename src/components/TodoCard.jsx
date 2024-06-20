@@ -20,7 +20,7 @@ export default function TodoCard(props) {
   return (
     <div className="todo-card rounded-xl my-2 mx-2 p-2 flex border-2 border-white items-center">
       <input className="w-fit  flex-none mx-2 outline-none scale-150" type="checkbox" name={`done` + index} id={`done` + index} checked={isfinished} onChange={handleChange} />
-      <p ref={paraRef} className={`w-full h-fit grow mx-2 font-medium text-xl ${isfinished?'line-through':''}`} >{index+". "+task}</p>
+      <p ref={paraRef} className={`w-full h-fit grow mx-2 font-medium text-xl ${isfinished?'line-through':''}`} >{task}</p>
       <button className="w-fit flex-none  text-2xl rounded-2xl " onClick={()=>{editTask(index)}}><FaEdit /></button>
       <button className="w-fit flex-none  text-2xl rounded-2xl" onClick={() => removeTask(index)}><MdDelete /></button>
     </div>
