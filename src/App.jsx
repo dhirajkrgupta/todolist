@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Todoinput from "./components/Todoinput";
 import TodoCard from "./components/TodoCard";
 
@@ -17,6 +17,7 @@ function App() {
   const [showAll, setShowAll] = useState(true);
   const [showFinished, setshowFinished] = useState(false);
   const [showUnfinished, setshowUnfinished] = useState(false);
+  const taskinputBtnRef = useRef(null);
 
   function addTask(newTask) {
     if (newTask != "") {
@@ -35,9 +36,10 @@ function App() {
     setTasks(newTasks);
   }
   function editTask(index) {
-    const taskTobeEdited = Tasks.find(item => item.id === index);;
+    const taskTobeEdited = Tasks.find(item => item.id === index);
     setInputTask(taskTobeEdited.task);
     removeTask(index);
+    taskinputBtnRef.current.focus();
   }
   function finishTask(index) {
     const newTasks = [...Tasks];
@@ -67,7 +69,7 @@ function App() {
         <h1 className="text-[#d3b99f] font-bold text-center text-3xl mb-2">Your To Do List</h1>
         <div className="container bg-[#bdadea] rounded-t-xl mx-auto w-full p-4">
           <div className="flex mb-4">
-          <Todoinput addTask={addTask} inputTask={inputTask} setInputTask={setInputTask} />
+          <Todoinput addTask={addTask} inputTask={inputTask} setInputTask={setInputTask} taskinputBtnRef={taskinputBtnRef} />
           </div>
           <div className="flex">
             <div className="mx-2">
