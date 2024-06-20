@@ -6,8 +6,8 @@ export default function Todoinput(props) {
   const addbtnRef=useRef(null);
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent the default behavior
-      addbtnRef.current.click(); // Trigger the button click
+      e.preventDefault(); 
+      addbtnRef.current.click();
     }
   };
   return (
