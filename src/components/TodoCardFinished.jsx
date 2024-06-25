@@ -5,12 +5,12 @@ import useTodo from "../context/TodoContext";
 import { IoMdAdd } from "react-icons/io";
 
 export default function TodoCard(props) {
-  const { removeTask, editTask, finishTask } = useTodo();
+  const { removeTask, editTask, unfinishTask } = useTodo();
   const { taskInfo } = props;
   const taskRef = useRef(null);
 
   const handleChange = () => {
-    finishTask(taskInfo.id);
+    unfinishTask(taskInfo.id);
   };
   const [edit, setEdit] = useState(false);
   const [task, setTask] = useState(taskInfo.task);
@@ -37,11 +37,12 @@ export default function TodoCard(props) {
         type="checkbox"
         name={taskInfo.id}
         id={taskInfo.id}
+        checked
         onChange={handleChange}
       />
       <label
         htmlFor={taskInfo.id}
-        className="w-full h-fit grow mx-2 font-medium text-xl"
+        className="w-full h-fit grow mx-2 font-medium text-xl line-through"
       >
         {edit
           ? <input

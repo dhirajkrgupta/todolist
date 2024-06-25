@@ -1,8 +1,11 @@
 
 import { IoMdAdd } from "react-icons/io";
 import {useRef} from "react";
+import useTodo from "../context/TodoContext";
 export default function Todoinput(props) {
-  const { addTask, inputTask, setInputTask,taskinputBtnRef } = props;
+
+  const { inputTask, setInputTask, taskinputBtnRef } = props;
+  const { addTask } = useTodo();
   const addbtnRef=useRef(null);
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
