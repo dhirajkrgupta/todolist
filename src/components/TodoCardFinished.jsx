@@ -31,7 +31,7 @@ export default function TodoCard(props) {
   }
 
   return (
-    <div className="todo-card bg-[#bdadea] rounded-xl my-2 mx-2 p-2 flex border-2 border-white items-center">
+    <div className="todo-card bg-[#875df9] rounded-xl my-2 mx-2 p-2 flex border-2 border-white items-center">
       <input
         className="w-fit  flex-none mx-2 outline-none scale-150"
         type="checkbox"

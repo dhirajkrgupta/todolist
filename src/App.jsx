@@ -73,9 +73,9 @@ function App() {
 
   return (
     <TodoContextProvider value={{Tasks,addTask,removeTask,editTask,finishTask,unfinishTask}}>
-      <div className="container min-w-fit min-h-fit mx-auto border-2 rounded-xl bg-[#363457]  text-white mt-1 p-4 absolute top-2/4 left-1/2 -translate-y-1/2 -translate-x-1/2">
+      <div className="  w-full max-h-fit min-h-full min-w-fit mx-auto   bg-[#363457]  text-white p-4 absolute top-2/4 left-1/2 -translate-y-1/2 -translate-x-1/2">
         <h1 className="text-[#d3b99f] font-bold text-center text-3xl mb-2">Your To Do List</h1>
-        <div className="container  rounded-t-xl mx-auto w-full p-4">
+        <div className="  w-full min-h-fit min-w-fit p-4">
           <div className="flex mb-4">
           <Todoinput inputTask={inputTask} setInputTask={setInputTask} taskinputBtnRef={taskinputBtnRef} />
           </div>
@@ -94,7 +94,7 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="container min-h-96 rounded-b-xl  p-4	">
+        <div className=" w-full p-4 min-h-fit min-w-fit	">
           {Tasks.filter(task => ((task.isfinished && showFinished) || (showAll) || ((!task.isfinished) && showUnfinished))).map((it) => {
             if (it.isfinished===true) return <TodoCardFinished key={it.id} taskInfo={it} />
             else return <TodoCard key={it.id} taskInfo={it}/>
