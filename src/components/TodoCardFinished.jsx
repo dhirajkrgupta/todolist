@@ -48,7 +48,7 @@ export default function TodoCard(props) {
 
 
   return (
-    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#76c7c0] to-[#a8e063]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900  items-center">
+    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#76c7c0] to-[#a8e063]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900  items-center ">
       <input
         className="w-fit  flex-none mx-2 outline-none scale-150"
         type="checkbox"
@@ -59,12 +59,12 @@ export default function TodoCard(props) {
       />
       <label
         htmlFor={taskInfo.id}
-        className="w-full h-fit grow mx-2 font-medium text-xl  text-white"
+        className="w-full h-fit grow  font-medium text-xl  text-white"
       >
         {edit
           ? <input
               ref={taskRef}
-              className="w-full bg-[rgba(0,0,0,0)] outline-none shadow-inner rounded"
+              className="w-full px-2 bg-transparent edit-box-shadow outline-none  rounded"
               type="text"
               autoFocus
               value={task}
@@ -73,7 +73,7 @@ export default function TodoCard(props) {
             }}
             onKeyDown={handleKeyDown}
             />
-          : task}
+          : <p className="px-2">{task}</p>}
       </label>
       <button
         className="w-fit flex-none  text-2xl rounded-2xl "
