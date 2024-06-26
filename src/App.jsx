@@ -96,8 +96,12 @@ function App() {
         </div>
         <div className=" w-full p-4 min-h-fit min-w-fit	">
           {Tasks.filter(task => ((task.isfinished && showFinished) || (showAll) || ((!task.isfinished) && showUnfinished))).map((it) => {
-            if (it.isfinished===true) return <TodoCardFinished key={it.id} taskInfo={it} />
+            if (it.isfinished===true) return ""
             else return <TodoCard key={it.id} taskInfo={it}/>
+          })}
+          {Tasks.filter(task => ((task.isfinished && showFinished) || (showAll) || ((!task.isfinished) && showUnfinished))).map((it) => {
+            if (it.isfinished===true) return <TodoCardFinished key={it.id} taskInfo={it} />
+            else return ""
           })}
         </div>
         

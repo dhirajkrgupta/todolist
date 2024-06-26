@@ -1,13 +1,12 @@
-import { useRef, useState } from "react";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { useRef, useState,useEffect } from "react";
 import useTodo from "../context/TodoContext";
-import { IoMdAdd } from "react-icons/io";
+
 
 export default function TodoCard(props) {
   const { removeTask, editTask, unfinishTask } = useTodo();
   const { taskInfo } = props;
   const taskRef = useRef(null);
+  const cardRef = useRef(null);
 
   const handleChange = () => {
     unfinishTask(taskInfo.id);
@@ -20,6 +19,7 @@ export default function TodoCard(props) {
   const handleAddClick = () => {
     if (task!="") {
       setEdit(false);
+      taskInfo.task = task;
       editTask(taskInfo.id, task);
     }
   };
@@ -30,8 +30,23 @@ export default function TodoCard(props) {
     }
   }
 
+  const handleClickOutside = (e) => {
+    if (cardRef.current && !cardRef.current.contains(e.target)) {
+      setEdit(false);
+      setTask(taskInfo.task);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
+
   return (
-    <div className="todo-card bg-[#875df9] rounded-xl my-2 mx-2 p-2 flex border-2 border-white items-center">
+    <div ref={cardRef} className="todo-card bg-[#6f42c1]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900 text-slate-900 items-center">
       <input
         className="w-fit  flex-none mx-2 outline-none scale-150"
         type="checkbox"
@@ -60,15 +75,14 @@ export default function TodoCard(props) {
       </label>
       <button
         className="w-fit flex-none  text-2xl rounded-2xl "
-        
       >
-        {edit == false ? <FaEdit onClick={handleEditClick} /> : <IoMdAdd onClick={handleAddClick}/>}
+        {edit == false ? <span onClick={handleEditClick}>{"📝"}</span> : <span onClick={handleAddClick}>{"✔"}</span>}
       </button>
       <button
         className="w-fit flex-none  text-2xl rounded-2xl"
         onClick={() => removeTask(taskInfo.id)}
       >
-        <MdDelete />
+        {"❌"}
       </button>
     </div>
   );
