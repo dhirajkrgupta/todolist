@@ -48,7 +48,7 @@ export default function TodoCard(props) {
 
 
   return (
-    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#a8e235] to-[#03db03]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900  items-center">
+    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#76c7c0] to-[#a8e063]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900  items-center">
       <input
         className="w-fit  flex-none mx-2 outline-none scale-150"
         type="checkbox"
