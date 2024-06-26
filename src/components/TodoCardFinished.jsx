@@ -76,7 +76,7 @@ export default function TodoCard(props) {
       <button
         className="w-fit flex-none  text-2xl rounded-2xl "
       >
-        {edit == false ? <span onClick={handleEditClick}>{"📝"}</span> : <span onClick={handleAddClick}>{"✔"}</span>}
+        {edit == false ? <span onClick={handleEditClick}>{"📝"}</span> : <span onClick={handleAddClick}>{"✔️"}</span>}
       </button>
       <button
         className="w-fit flex-none  text-2xl rounded-2xl"
