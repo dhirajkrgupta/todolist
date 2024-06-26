@@ -1,7 +1,8 @@
 import { useRef, useState,useEffect } from "react";
 import useTodo from "../context/TodoContext";
 import checkmark from "../assets/checkmark.png"
-
+import cross from "../assets/cross.png"
+import memo from "../assets/memo.png"
 
 export default function TodoCard(props) {
   const { removeTask, editTask, unfinishTask } = useTodo();
@@ -77,13 +78,15 @@ export default function TodoCard(props) {
       <button
         className="w-fit flex-none  text-2xl rounded-2xl "
       >
-        {edit == false ? <span onClick={handleEditClick}>{"📝"}</span> : <span onClick={handleAddClick}><img src={checkmark} className="w-8" alt="checkmark" /></span>}
+        {edit == false ? <span onClick={handleEditClick}><img src={memo} className="w-8" alt="edit" /></span> : <span onClick={handleAddClick} ><img src={checkmark} className="w-8" alt="checkmark" /></span>}
+
+
       </button>
       <button
         className="w-fit flex-none  text-2xl rounded-2xl"
         onClick={() => removeTask(taskInfo.id)}
       >
-        {"❌"}
+        <img src={cross} className="w-8" alt="delete" />
       </button>
     </div>
   );
