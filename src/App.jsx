@@ -81,16 +81,16 @@ function App() {
           </div>
           <div className="flex">
             <div className="mx-2">
-              <label htmlFor="show">Finished</label>
-              <input className="mx-1" type="radio" name="show" id="finished" onChange={()=>{setShowAll(false);setshowFinished(true);setshowUnfinished(false)}} />
-            </div>
-            <div className="mx-2">
-              <label htmlFor="show">Unfinished</label>
-              <input className="mx-1" type="radio" name="show" id="unfinished" onChange={()=>{setShowAll(false);setshowFinished(false);setshowUnfinished(true)}}/>
-            </div>
-            <div className="mx-2">
-              <label htmlFor="show">All</label>
-              <input className="mx-1" type="radio" name="show" id="all" defaultChecked onChange={()=>{setShowAll(true);setshowFinished(false);setshowUnfinished(false)}} />
+            <label className="cursor-pointer" htmlFor="finished">Finished</label>
+            <input className="mx-1 cursor-pointer" type="radio" name="show" id="finished" onChange={()=>{setShowAll(false);setshowFinished(true);setshowUnfinished(false)}} />
+          </div>
+          <div className="mx-2">
+            <label className="cursor-pointer" htmlFor="unfinished">Unfinished</label>
+            <input className="mx-1 cursor-pointer border-none" type="radio" name="show" id="unfinished" onChange={()=>{setShowAll(false);setshowFinished(false);setshowUnfinished(true)}}/>
+          </div>
+          <div className="mx-2">
+            <label className="cursor-pointer" htmlFor="all">All</label>
+            <input className="mx-1 cursor-pointer" type="radio" name="show" id="all" defaultChecked onChange={() => { setShowAll(true); setshowFinished(false); setshowUnfinished(false) }} />
             </div>
           </div>
         </div>
