@@ -28,9 +28,9 @@ function App() {
         id = 1;
       }
       else {
-        id = Tasks.slice(-1)[0].id+1;
+        id = Tasks[0].id+1;
       }
-      const newTasks = [ ...Tasks,{id:id,task:newTask,isfinished:false} ];
+      const newTasks = [{id:id,task:newTask,isfinished:false},...Tasks];
       setTasks(newTasks);
     }
   }
