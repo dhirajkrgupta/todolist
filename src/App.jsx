@@ -79,7 +79,7 @@ function App() {
           <div className="flex mb-4">
           <Todoinput inputTask={inputTask} setInputTask={setInputTask} taskinputBtnRef={taskinputBtnRef} />
           </div>
-          <div className="flex">
+          <div className="flex mx-2">
             <div className="mx-2">
             <label className="cursor-pointer" htmlFor="finished">Finished</label>
             <input className="mx-1 cursor-pointer" type="radio" name="show" id="finished" onChange={()=>{setShowAll(false);setshowFinished(true);setshowUnfinished(false)}} />
