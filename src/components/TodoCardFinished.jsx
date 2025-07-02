@@ -21,7 +21,7 @@ export default function TodoCard({ taskInfo }) {
     if (task!="") {
       setEdit(false);
       taskInfo.task = task;
-      editTask(taskInfo.id, task);
+      editTask(taskInfo.id, task,taskInfo.isFinished);
     }
   };
   const handleEnter = (e) => {
@@ -76,7 +76,7 @@ export default function TodoCard({ taskInfo }) {
       </button>
 
       <button className="w-fit flex-none  text-2xl rounded-2xl"
-        onClick={() => removeTask(taskInfo.id)}
+        onClick={() => removeTask(taskInfo.id,taskInfo.isFinished)}
       >
         <img src={cross} className="w-8" alt="delete" />
       </button>

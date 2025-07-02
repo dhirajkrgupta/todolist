@@ -1,106 +1,31 @@
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { useState,useEffect } from "react";
 import Todoinput from "./components/Todoinput";
 import TodoCard from "./components/TodoCard";
 import TodoCardFinished from "./components/TodoCardFinished";
-import { TodoContextProvider } from "./context/TodoContext";
+import { TodoProvider } from "./context/TodoProvider";
 import Canvas from "./components/Canvas";
 
 function App() {
-  
-  function storeStateToLocalStorage(st1) {
+   const [filter, setFilter] = useState('all');
+   const [Tasks, setTasks] = useState(loadStateFromLocalStorage||{finished:[],unfinished:[]});
+
+    function storeStateToLocalStorage(st1) {
     localStorage.setItem("Task", JSON.stringify(st1));
   }
   function loadStateFromLocalStorage() {
     const st = localStorage.getItem("Task");
     return st ? JSON.parse(st) : {finished:[],unfinished:[]};
   }
-
-  const [Tasks, setTasks] = useState(loadStateFromLocalStorage||{finished:[],unfinished:[]});
-
-  const [filter, setFilter] = useState('all');
-  
-  
-
-  function addTask(newTask) {
-    if (newTask != "") {
-
-      const taskWithID={
-        id:uuidv4(),
-        task:newTask,
-        isFinished:false
-      };
-
-      setTasks(prev=>({
-        ...prev,
-        unfinished:[taskWithID,...prev.unfinished]
-      }));
-    }
-
-  }
-
-  function removeTask(id,isFinished) {
-    
-    if(isFinished){
-        const updated = Tasks.finished.filter(it =>it.id != id);
-        setTasks({...Tasks,finished:updated});
-    }else{
-        const updated = Tasks.unfinished.filter(it =>it.id != id);
-        setTasks({...Tasks,unfinished:updated});
-    }
-  }
-
-  function editTask(id,task,isFinished) {
-    if(isFinished){
-        const updated=Tasks.finished.map(it=>(it.id===id)?{...it,task:task}:it);
-        setTasks({...Tasks,finished:updated});
-    }else{
-        const updated=Tasks.unfinished.map(it=>(it.id===id)?{...it,task:task}:it);
-        setTasks({...Tasks,unfinished:updated});
-    }
-  }
-
-  function finishTask(id) {
-    const taskToMove = Tasks.unfinished.find(item => item.id === id);
-    if (!taskToMove) return;
-
-    const updatedUnfinished = Tasks.unfinished.filter(item => item.id !== id);
-    const updatedFinished=[{...taskToMove,isFinished:true},...Tasks.finished];
-
-    setTasks({
-      ...Tasks,
-      finished:updatedFinished,
-      unfinished:updatedUnfinished
-    });
-    console.log(Tasks);
-  }
-
-  function unfinishTask(id) {
-    const taskToMove = Tasks.finished.find(item => item.id === id);
-    if (!taskToMove) return;
-
-    const updatedFinished = Tasks.finished.filter(item => item.id !== id);
-    const updatedUnfinished=[{...taskToMove,isFinished:false},...Tasks.unfinished];
-
-    setTasks({
-      ...Tasks,
-      finished:updatedFinished,
-      unfinished:updatedUnfinished
-    });
-  }
-  
-
-  useEffect(
+    useEffect(
     () => {
-      storeStateToLocalStorage(Tasks);
-      
+    storeStateToLocalStorage(Tasks);
+    
     },
     [Tasks]
-  );
-    console.log(Tasks);
+);
 
   return (
-    <TodoContextProvider value={{Tasks,addTask,removeTask,editTask,finishTask,unfinishTask}}>
+    <TodoProvider Tasks={Tasks} setTasks={setTasks}>
       <div className="p-0 min-w-[320px] max-w-[750px] text-white  select-none m-auto ">
         <h1 className="text-[#60d9b8] font-bold text-center text-3xl mb-2">Your To Do List</h1>
 
@@ -144,7 +69,7 @@ function App() {
 
       </div>
       <Canvas/>
-    </TodoContextProvider >
+    </TodoProvider >
   );
 }
 
