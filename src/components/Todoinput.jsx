@@ -17,9 +17,9 @@ export default function Todoinput() {
   };
   return (
     <>
-      <input  className=" placeholder:text-slate-900 text-slate-900 bg-[#bdadea] grow mx-2 p-2 px-4 font-bold rounded-3xl outline-none input-box-shadow" type="text" placeholder="Enter Task..." name="task" id="task" value={inputTask} onChange={e=>setInputTask(e.target.value)} onKeyDown={handleKeyDown}/>
+      <input  className=" placeholder:text-slate-900 text-slate-900 bg-[#bdadea]  p-2 font-bold rounded-3xl outline-none input-box-shadow min-w-[212px] grow max-w-[750px] mr-2" type="text" placeholder="Enter Task..." name="task" id="task" value={inputTask} onChange={e=>setInputTask(e.target.value)} onKeyDown={handleKeyDown}/>
 
-      <button ref={addbtnRef} onClick={() => { addTask(inputTask); setInputTask("") }} className="bg-[#75dddd] text-black  w-fit mx-2 p-2 px-4 rounded-xl btn-shadow"><img src={add} className="w-8 " alt="add" /></button>
+      <button ref={addbtnRef} onClick={() => { addTask(inputTask); setInputTask("") }} className="bg-[#75dddd] text-black   p-1  rounded-xl btn-shadow"><img src={add} className="w-8 " alt="add" /></button>
     </>
   );
 }

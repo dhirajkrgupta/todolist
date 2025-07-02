@@ -101,11 +101,11 @@ function App() {
 
   return (
     <TodoContextProvider value={{Tasks,addTask,removeTask,editTask,finishTask,unfinishTask}}>
-      <div className="container min-h-screen overflow-y-auto min-w-max mx-auto    text-white p-4 select-none ">
+      <div className="p-0 min-w-[320px] max-w-[750px] text-white  select-none m-auto ">
         <h1 className="text-[#60d9b8] font-bold text-center text-3xl mb-2">Your To Do List</h1>
 
-        <div className="  min-w-max h-fit  p-4">
-          <div className="flex mb-4">
+        <div className="min-w-80 h-fit  p-0">
+          <div className="flex mb-4 justify-center p-2">
             <Todoinput />
           </div>
 
@@ -127,7 +127,7 @@ function App() {
         </div>
 
 
-        <div className=" min-w-max p-4 h-fit">
+        <div className=" min-w-max p-0 h-fit">
           {(filter==='unfinished' || filter==='all') && 
           Tasks.unfinished.map(it=>(
                 <TodoCard key={it.id} taskInfo={it}/>
