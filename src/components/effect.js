@@ -118,9 +118,9 @@ export class Effect {
     }
   }
   handleParticles() {
-    this.conectParticles();
+    // this.conectParticles();
     this.particles.forEach((particle) => {
-      // particle.draw(this.context);
+      particle.draw(this.context);
       particle.update();
     });
   }
