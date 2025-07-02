@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import Todoinput from "./components/Todoinput";
 import TodoCard from "./components/TodoCard";
 import TodoCardFinished from "./components/TodoCardFinished";
@@ -8,58 +9,84 @@ import Canvas from "./components/Canvas";
 function App() {
   
   function storeStateToLocalStorage(st1) {
-    localStorage.setItem("Tasks", JSON.stringify(st1));
+    localStorage.setItem("Task", JSON.stringify(st1));
   }
   function loadStateFromLocalStorage() {
-    const st = localStorage.getItem("Tasks");
-    return st ? JSON.parse(st) : [];
+    const st = localStorage.getItem("Task");
+    return st ? JSON.parse(st) : {finished:[],unfinished:[]};
   }
 
-  const [Tasks, setTasks] = useState(loadStateFromLocalStorage||[]);
-  const [inputTask, setInputTask] = useState("");
-  const [showAll, setShowAll] = useState(true);
-  const [showFinished, setshowFinished] = useState(false);
-  const [showUnfinished, setshowUnfinished] = useState(false);
-  const taskinputBtnRef = useRef(null);
+  const [Tasks, setTasks] = useState(loadStateFromLocalStorage||{finished:[],unfinished:[]});
+
+  const [filter, setFilter] = useState('all');
+  
+  
 
   function addTask(newTask) {
     if (newTask != "") {
-      let id;
-      if (Tasks.length===0) {
-        id = 1;
-      }
-      else {
-        id = Tasks[0].id+1;
-      }
-      const newTasks = [{id:id,task:newTask,isfinished:false},...Tasks];
-      setTasks(newTasks);
+
+      const taskWithID={
+        id:uuidv4(),
+        task:newTask,
+        isFinished:false
+      };
+
+      setTasks(prev=>({
+        ...prev,
+        unfinished:[taskWithID,...prev.unfinished]
+      }));
+    }
+
+  }
+
+  function removeTask(id,isFinished) {
+    
+    if(isFinished){
+        const updated = Tasks.finished.filter(it =>it.id != id);
+        setTasks({...Tasks,finished:updated});
+    }else{
+        const updated = Tasks.unfinished.filter(it =>it.id != id);
+        setTasks({...Tasks,unfinished:updated});
     }
   }
 
-  function removeTask(id) {
-    const newTasks = Tasks.filter((it) => {
-      return it.id != id;
-    });
-    setTasks(newTasks);
+  function editTask(id,task,isFinished) {
+    if(isFinished){
+        const updated=Tasks.finished.map(it=>(it.id===id)?{...it,task:task}:it);
+        setTasks({...Tasks,finished:updated});
+    }else{
+        const updated=Tasks.unfinished.map(it=>(it.id===id)?{...it,task:task}:it);
+        setTasks({...Tasks,unfinished:updated});
+    }
   }
 
-  function editTask(id,task) {
-    let idx = Tasks.findIndex(item => item.id === id);
-    const newTasks = [...Tasks];
-    newTasks[idx] = { ...newTasks[idx], task: task };
-    setTasks(newTasks);
-  }
   function finishTask(id) {
-    let idx=Tasks.findIndex(item => item.id === id)
-    const newTasks = [...Tasks];
-    newTasks[idx] = { ...newTasks[idx], isfinished: true };
-    setTasks(newTasks);
+    const taskToMove = Tasks.unfinished.find(item => item.id === id);
+    if (!taskToMove) return;
+
+    const updatedUnfinished = Tasks.unfinished.filter(item => item.id !== id);
+    const updatedFinished=[{...taskToMove,isFinished:true},...Tasks.finished];
+
+    setTasks({
+      ...Tasks,
+      finished:updatedFinished,
+      unfinished:updatedUnfinished
+    });
+    console.log(Tasks);
   }
+
   function unfinishTask(id) {
-    let idx=Tasks.findIndex(item => item.id === id)
-    const newTasks = [...Tasks];
-    newTasks[idx].isfinished=false;
-    setTasks(newTasks);
+    const taskToMove = Tasks.finished.find(item => item.id === id);
+    if (!taskToMove) return;
+
+    const updatedFinished = Tasks.finished.filter(item => item.id !== id);
+    const updatedUnfinished=[{...taskToMove,isFinished:false},...Tasks.unfinished];
+
+    setTasks({
+      ...Tasks,
+      finished:updatedFinished,
+      unfinished:updatedUnfinished
+    });
   }
   
 
@@ -70,42 +97,51 @@ function App() {
     },
     [Tasks]
   );
-  
+    console.log(Tasks);
 
   return (
     <TodoContextProvider value={{Tasks,addTask,removeTask,editTask,finishTask,unfinishTask}}>
       <div className="container min-h-screen overflow-y-auto min-w-max mx-auto    text-white p-4 select-none ">
         <h1 className="text-[#60d9b8] font-bold text-center text-3xl mb-2">Your To Do List</h1>
+
         <div className="  min-w-max h-fit  p-4">
           <div className="flex mb-4">
-          <Todoinput inputTask={inputTask} setInputTask={setInputTask} taskinputBtnRef={taskinputBtnRef} />
+            <Todoinput />
           </div>
+
           <div className="flex mx-2">
             <div className="mx-2">
-            <label className="cursor-pointer" htmlFor="finished">Finished</label>
-            <input className="mx-1 cursor-pointer" type="radio" name="show" id="finished" onChange={()=>{setShowAll(false);setshowFinished(true);setshowUnfinished(false)}} />
-          </div>
-          <div className="mx-2">
-            <label className="cursor-pointer" htmlFor="unfinished">Unfinished</label>
-            <input className="mx-1 cursor-pointer border-none" type="radio" name="show" id="unfinished" onChange={()=>{setShowAll(false);setshowFinished(false);setshowUnfinished(true)}}/>
-          </div>
-          <div className="mx-2">
-            <label className="cursor-pointer" htmlFor="all">All</label>
-            <input className="mx-1 cursor-pointer" type="radio" name="show" id="all" defaultChecked onChange={() => { setShowAll(true); setshowFinished(false); setshowUnfinished(false) }} />
+              <label className="cursor-pointer" htmlFor="finished">Finished</label>
+              <input className="mx-1 cursor-pointer" type="radio" name="show" id="finished" onChange={()=>setFilter('finished')} />
+            </div>
+            <div className="mx-2">
+              <label className="cursor-pointer" htmlFor="unfinished">Unfinished</label>
+              <input className="mx-1 cursor-pointer border-none" type="radio" name="show" id="unfinished" onChange={()=>setFilter('unfinished')}/>
+            </div>
+            <div className="mx-2">
+              <label className="cursor-pointer" htmlFor="all">All</label>
+              <input className="mx-1 cursor-pointer" type="radio" name="show" id="all" defaultChecked onChange={() => setFilter('all')} />
             </div>
           </div>
+
         </div>
+
+
         <div className=" min-w-max p-4 h-fit">
-          {Tasks.filter(task => ((task.isfinished && showFinished) || (showAll) || ((!task.isfinished) && showUnfinished))).map((it) => {
-            if (it.isfinished===true) return ""
-            else return <TodoCard key={it.id} taskInfo={it}/>
-          })}
-          {Tasks.filter(task => ((task.isfinished && showFinished) || (showAll) || ((!task.isfinished) && showUnfinished))).map((it) => {
-            if (it.isfinished===true) return <TodoCardFinished key={it.id} taskInfo={it} />
-            else return ""
-          })}
+          {(filter==='unfinished' || filter==='all') && 
+          Tasks.unfinished.map(it=>(
+                <TodoCard key={it.id} taskInfo={it}/>
+              ))
+          }
+
+          {(filter==='finished'||filter==='all') &&
+              Tasks.finished.map(it=>(
+                <TodoCardFinished key={it.id} taskInfo={it}/>
+              ))
+          }
         </div>
         
+
       </div>
       <Canvas/>
     </TodoContextProvider >
