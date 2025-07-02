@@ -70,7 +70,7 @@ export class Effect {
     this.height = this.canvas.height;
     this.width = this.canvas.width;
     this.particles = [];
-    this.numberOfParticles = 200;
+    this.numberOfParticles =Math.floor((this.height*this.width)/4000);
     this.context = context;
     this.createParticles();
     this.mouse = {
@@ -79,7 +79,7 @@ export class Effect {
       pressed: false,
       radius: 150,
     };
-
+    console.log(Math.floor((this.height*this.width)/1800))
     window.addEventListener("resize", (e) => {
       this.resize(e.target.window.innerHeight, e.target.window.innerWidth,this.context);
     });
