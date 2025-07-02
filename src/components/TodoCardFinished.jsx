@@ -47,7 +47,7 @@ export default function TodoCard({ taskInfo }) {
 
 
   return (
-    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#76c7c0] to-[#a8e063]  rounded-xl my-2 mx-2 p-2 flex border-2 border-slate-900  items-center ">
+    <div ref={cardRef} className=" finished-card card-box-shadow rounded-xl my-2 mx-2 p-2 flex    items-center ">
       <input className="w-fit  flex-none mx-2 outline-none scale-150"
         type="checkbox"
         name={taskInfo.id}
@@ -55,7 +55,7 @@ export default function TodoCard({ taskInfo }) {
         checked
         onChange={handleCheckBox}
       />
-      <label className="w-full h-fit grow  font-medium text-xl  text-white" htmlFor={taskInfo.id}>
+      <label className="w-full h-fit grow  font-medium text-xl text-gray-400" htmlFor={taskInfo.id}>
         {edit? <input
               ref={taskRef}
               className="w-full px-2 bg-transparent edit-box-shadow outline-none  rounded"

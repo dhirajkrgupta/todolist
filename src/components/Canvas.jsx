@@ -30,7 +30,7 @@ const Canvas = () => {
     },[])
 
   return (
-    createPortal(<canvas ref={canvasRef} id='canvas1' className='bg-[linear-gradient(135deg,#2c2a4a,#3b3868)] '></canvas>,document.body)
+    createPortal(<canvas ref={canvasRef} id='canvas1' ></canvas>,document.body)
   )
 }
 

@@ -10,6 +10,10 @@
 .card-box-shadow{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+.finished-card{
+    background-color: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+}
 
 .input-box-shadow{
     box-shadow: #424242 0px 0px 2px 1px inset;}
@@ -24,4 +28,5 @@
     width: 100vw;
     height: 100vh;
     z-index: -1;
+    background-image: linear-gradient(to right bottom, #1b0227, #250937, #310b48, #3e0d5a, #4c0d6c, #520a6d, #59076d, #5f036e, #5c015e, #570250, #500543, #480837);
 }
