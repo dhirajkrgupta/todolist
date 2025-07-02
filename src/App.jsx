@@ -3,6 +3,7 @@ import Todoinput from "./components/Todoinput";
 import TodoCard from "./components/TodoCard";
 import TodoCardFinished from "./components/TodoCardFinished";
 import { TodoContextProvider } from "./context/TodoContext";
+import Canvas from "./components/Canvas";
 
 function App() {
   
@@ -73,8 +74,8 @@ function App() {
 
   return (
     <TodoContextProvider value={{Tasks,addTask,removeTask,editTask,finishTask,unfinishTask}}>
-      <div className="container min-h-screen overflow-y-auto min-w-max mx-auto   bg-[linear-gradient(135deg,#2c2a4a,#3b3868)]  text-white p-4 ">
-        <h1 className="text-[#d3b99f] font-bold text-center text-3xl mb-2">Your To Do List</h1>
+      <div className="container min-h-screen overflow-y-auto min-w-max mx-auto    text-white p-4 ">
+        <h1 className="text-[#60d9b8] font-bold text-center text-3xl mb-2">Your To Do List</h1>
         <div className="  min-w-max h-fit  p-4">
           <div className="flex mb-4">
           <Todoinput inputTask={inputTask} setInputTask={setInputTask} taskinputBtnRef={taskinputBtnRef} />
@@ -106,7 +107,8 @@ function App() {
         </div>
         
       </div>
-    </TodoContextProvider>
+      <Canvas/>
+    </TodoContextProvider >
   );
 }
 
