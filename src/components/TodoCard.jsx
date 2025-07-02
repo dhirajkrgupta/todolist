@@ -47,16 +47,16 @@ export default function TodoCard({taskInfo}) {
   }, []);
 
   return (
-    <div ref={cardRef} className="todo-card bg-gradient-to-br from-[#bdadea] to-blue-500 bg-[#bdadea] rounded-xl my-2 mx-2 p-2 flex  border-slate-900  items-center card-box-shadow ">
+    <div ref={cardRef} className="bg-gradient-to-br from-[#bdadea] to-blue-500 bg-[#bdadea] rounded-xl my-2 mx-2 p-2 flex  border-slate-900  items-center card-box-shadow overflow-hidden">
         <input className="w-fit  flex-none mx-2 outline-none scale-150"type="checkbox" 
           name={taskInfo.id}
           id={taskInfo.id}
           onChange={handleCheckBox}
         />
-        <label className="w-full h-fit grow  font-medium text-xl text-gray-900 "htmlFor={taskInfo.id}>
+        <label className="w-full min-w-0 h-fit   font-medium text-xl text-gray-900 "htmlFor={taskInfo.id}>
         {edit? <input
-              ref={taskRef}
-              className="w-full px-2 bg-transparent edit-box-shadow outline-none  rounded"
+              ref={taskRef} 
+               className="w-full  px-2 bg-transparent edit-box-shadow outline-none  rounded "
               type="text"
               autoFocus
               value={task}

@@ -52,7 +52,7 @@ function App() {
         </div>
 
 
-        <div className=" min-w-max p-0 h-fit">
+        <div className="w-full p-0 h-fit">
           {(filter==='unfinished' || filter==='all') && 
           Tasks.unfinished.map(it=>(
                 <TodoCard key={it.id} taskInfo={it}/>
